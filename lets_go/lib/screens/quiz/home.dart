@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'HOME',style: TextStyle(fontSize: 40),
+              'PROFILE',style: TextStyle(fontSize: 40),
             ),
           ],
         ),

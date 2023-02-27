@@ -1,8 +1,9 @@
-import 'package:lets_go/screens/home.dart';
+import 'package:lets_go/screens/quiz/home.dart';
 import 'package:lets_go/screens/more.dart';
 import 'package:lets_go/screens/profile.dart';
 import 'package:lets_go/screens/team.dart';
 import 'package:flutter/material.dart';
+import 'package:lets_go/screens/Play.dart';
 
 class FabTabs extends StatefulWidget {
   int selectedIndex = 0;
@@ -39,7 +40,7 @@ class _FabTabsState extends State<FabTabs> {
   final PageStorageBucket bucket = PageStorageBucket();
   @override
   Widget build(BuildContext context) {
-    Widget currentScreen = currentIndex == 0 ? Home() : currentIndex == 1 ? Profile() :currentIndex == 2 ?Team():More();
+    Widget currentScreen = currentIndex == 0 ? Home() : currentIndex == 1 ? Profile() :currentIndex == 2 ?Team():currentIndex == 3 ?More():Play();
     return Scaffold(
       body: PageStorage(
         child: currentScreen,
@@ -47,9 +48,12 @@ class _FabTabsState extends State<FabTabs> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.purple,
-        child: Icon(Icons.add),
+        child: Icon(Icons.play_arrow_sharp),
         onPressed: () {
-          print("add fab button");
+          setState(() {
+            currentScreen = Home();
+            currentIndex = 4;
+          });
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -102,7 +106,7 @@ class _FabTabsState extends State<FabTabs> {
                           color: currentIndex == 1 ? Colors.blueAccent : Colors.grey,
                         ),
                         Text(
-                          "Home",
+                          "Profile",
                           style: TextStyle(color: currentIndex == 1 ? Colors.blueAccent : Colors.grey),
                         )
                       ],
