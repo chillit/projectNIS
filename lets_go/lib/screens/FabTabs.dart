@@ -1,3 +1,4 @@
+import 'package:lets_go/screens/Register.dart';
 import 'package:lets_go/screens/quiz/home.dart';
 import 'package:lets_go/screens/more.dart';
 import 'package:lets_go/screens/profile.dart';
@@ -32,7 +33,7 @@ class _FabTabsState extends State<FabTabs> {
 
   final List<Widget> pages = [
     Home(),
-    Profile(),
+    MyProfileScreen(),
     Team(),
     More()
   ];
@@ -40,7 +41,7 @@ class _FabTabsState extends State<FabTabs> {
   final PageStorageBucket bucket = PageStorageBucket();
   @override
   Widget build(BuildContext context) {
-    Widget currentScreen = currentIndex == 0 ? Home() : currentIndex == 1 ? Profile() :currentIndex == 2 ?Team():currentIndex == 3 ?More():Play();
+    Widget currentScreen = currentIndex == 0 ? Home() : currentIndex == 1 ? MyProfileScreen() :currentIndex == 2 ?Team():currentIndex == 3 ?More():currentIndex == 4?Register():Play();
     return Scaffold(
       body: PageStorage(
         child: currentScreen,
@@ -51,8 +52,8 @@ class _FabTabsState extends State<FabTabs> {
         child: Icon(Icons.play_arrow_sharp),
         onPressed: () {
           setState(() {
-            currentScreen = Home();
-            currentIndex = 4;
+            currentScreen = Play();
+            currentIndex = 5;
           });
         },
       ),
@@ -94,7 +95,7 @@ class _FabTabsState extends State<FabTabs> {
                     minWidth: 50,
                     onPressed: (){
                       setState(() {
-                        currentScreen = Profile();
+                        currentScreen = MyProfileScreen();
                         currentIndex = 1;
                       });
                     },

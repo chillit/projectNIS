@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lets_go/screens/quiz/question_model.dart';
+import 'package:lets_go/sidemenu.dart';
 
 class Play extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _QuizScreenState extends State<Play> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: SideMenu(),
       backgroundColor: const Color.fromARGB(255, 5, 50, 80),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 32),

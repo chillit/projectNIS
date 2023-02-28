@@ -55,6 +55,13 @@ class _SideMenuState extends State<SideMenu> {
             onTap: () => {
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FabTabs(selectedIndex:3)))
             },
+          ),
+          ListTile(
+            leading: Icon(Icons.login),
+            title: Text("Register"),
+            onTap: () => {
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FabTabs(selectedIndex:4)))
+            },
           )
         ],
       ),
