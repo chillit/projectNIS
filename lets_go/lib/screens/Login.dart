@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
 
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<Login> createState() => _LoginState();
 }
 
-class _RegisterState extends State<Register> {
+class _LoginState extends State<Login> {
   bool isCheked = true;
 
   var userName = TextEditingController();
   var passWord = TextEditingController();
-  var passWord2 = TextEditingController();
+
   /*тут некоторые строки связаны с файербейс. Я их пока что закоментирую,
   потому что это не особо правильно и файербейс пока что не подключен к проекту*/
 
@@ -37,7 +37,7 @@ class _RegisterState extends State<Register> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text('Sign up',
+                const Text('Sign in',
                     style:
                     TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 const Padding(padding: EdgeInsets.only(top: 10)),
@@ -59,17 +59,6 @@ class _RegisterState extends State<Register> {
                   obscuringCharacter: '*',
                   obscureText: isCheked,
                 ),
-                const Padding(padding: EdgeInsets.only(top: 10)),
-                TextField(
-                  controller: passWord2,
-                  decoration: const InputDecoration(
-                    label: Text('Repeat password'),
-                    filled: true,
-                    border: InputBorder.none,
-                  ),
-                  obscuringCharacter: '*',
-                  obscureText: isCheked,
-                ),
                 Row(children: [
                   Checkbox(
                     value: isCheked,
@@ -85,10 +74,10 @@ class _RegisterState extends State<Register> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        print('${userName.text} & ${passWord.text} / ${passWord2.text}');
+                        print('${userName.text} & ${passWord.text}');
                         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                       },
-                      child: const Text('Register'),
+                      child: const Text('Login'),
                     )),
               ],
             ),
@@ -97,7 +86,7 @@ class _RegisterState extends State<Register> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Already have an account? ',
+                'Don\'t have an account? ',
                 style: TextStyle(
                   fontSize: 17,
                 ),
@@ -105,11 +94,11 @@ class _RegisterState extends State<Register> {
               Container(
                 child: GestureDetector(
                   onTap: () {
-                    print('login');
-                    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                    print('register');
+                    Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => false);
                   },
                   child: const Text(
-                    'Login',
+                    'Register',
                     style: TextStyle(
                         fontSize: 17,
                         color: Colors.pinkAccent,
