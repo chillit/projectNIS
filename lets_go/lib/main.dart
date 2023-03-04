@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lets_go/screens/FabTabs.dart';
-import 'package:lets_go/screens/Login.dart';
-import 'package:lets_go/screens/Register.dart';
-bool isSigned = false;
 void main() {
   runApp(const MyApp());
 }
@@ -14,14 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.blue,
       ),
-      initialRoute: isSigned ? '/' : '/register',
-      routes: {
-        '/': (context) => FabTabs(selectedIndex: 0),
-        '/register': (context) => Register(),
-        '/login': (context) => Login(),
-      },
+      home: FabTabs(selectedIndex:0),
     );
   }
 }
