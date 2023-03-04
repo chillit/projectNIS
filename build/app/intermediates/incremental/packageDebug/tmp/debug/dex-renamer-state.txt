@@ -1,0 +1,4 @@
+#Wed Feb 22 10:15:31 ALMT 2023
+base.0=C\:\\Users\\mrrah\\StudioProjects\\lets_go\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
