@@ -63,7 +63,7 @@ class MyProfileScreen extends StatelessWidget {
                         'Aisha Mirza',
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
-                      Text('Rating:1987 | Leaderboard:4',
+                      Text('Class X-II A | Roll no: 12',
                           style: Theme.of(context).textTheme.subtitle2),
                     ],
                   )
@@ -75,23 +75,23 @@ class MyProfileScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ProfileDetailRow(
-                    title: 'Number', value: '2020-ASDF-2021'),
-                ProfileDetailRow(title: 'Rating', value: '2020-2021'),
+                    title: 'Registration Number', value: '2020-ASDF-2021'),
+                ProfileDetailRow(title: 'Academic Year', value: '2020-2021'),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                ProfileDetailRow(title: 'Grade', value: 'X-II'),
-                ProfileDetailRow(title: 'Questions', value: '000126'),
+                ProfileDetailRow(title: 'Admission Class', value: 'X-II'),
+                ProfileDetailRow(title: 'Admission Number', value: '000126'),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ProfileDetailRow(
-                    title: 'Date of Birth', value: '1 Aug, 2020'),
-                ProfileDetailRow(title: 'Leaderboard rating', value: '3 May 1998'),
+                    title: 'Date of Admission', value: '1 Aug, 2020'),
+                ProfileDetailRow(title: 'Date of Birth', value: '3 May 1998'),
               ],
             ),
             sizedBox,
@@ -100,11 +100,11 @@ class MyProfileScreen extends StatelessWidget {
               value: 'aisha12@gmail.com',
             ),
             ProfileDetailColumn(
-              title: 'School',
+              title: 'Father Name',
               value: 'John Mirza',
             ),
             ProfileDetailColumn(
-              title: 'IDK',
+              title: 'Mother Name',
               value: 'Angelica Mirza',
             ),
             ProfileDetailColumn(
@@ -152,6 +152,10 @@ class ProfileDetailRow extends StatelessWidget {
               ),
             ],
           ),
+          Icon(
+            Icons.lock_outline,
+            size: 20,
+          ),
         ],
       ),
     );
@@ -191,6 +195,10 @@ class ProfileDetailColumn extends StatelessWidget {
                 ),
               )
             ],
+          ),
+          Icon(
+            Icons.lock_outline,
+            size: 20,
           ),
         ],
       ),
