@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../shared_prefs.dart';
 
 
 class Login extends StatefulWidget {
@@ -76,6 +77,8 @@ class _LoginState extends State<Login> {
                       onPressed: () {
                         print('${userName.text} & ${passWord.text}');
                         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                        SharedPrefs().isSigned = true;
+                        SharedPrefs().username = userName.text;
                       },
                       child: const Text('Login'),
                     )),

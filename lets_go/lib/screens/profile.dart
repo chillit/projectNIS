@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lets_go/constans.dart';
 import 'package:lets_go/sidemenu.dart';
+import 'package:lets_go/shared_prefs.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -60,7 +61,7 @@ class MyProfileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Aisha Mirza',
+                        SharedPrefs().username,
                         style: Theme.of(context).textTheme.subtitle1,
                       ),
                       Text('Rating:1987 | Leaderboard:4',

@@ -2,10 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:lets_go/screens/FabTabs.dart';
 import 'package:lets_go/screens/Login.dart';
 import 'package:lets_go/screens/Register.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:lets_go/shared_prefs.dart';
 bool isSigned = false;
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+  if(prefs.containsKey('isSigned') == false) {
+    prefs.setBool('isSigned', false);
+  }
+  
+  isSigned = prefs.getBool('isSigned')!;
+
+  print("started");
+  SharedPrefs().init();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   // This widget is the root of your application.

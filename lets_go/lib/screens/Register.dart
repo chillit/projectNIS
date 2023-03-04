@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:lets_go/shared_prefs.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
-
   @override
   State<Register> createState() => _RegisterState();
 }
@@ -14,6 +13,7 @@ class _RegisterState extends State<Register> {
   var userName = TextEditingController();
   var passWord = TextEditingController();
   var passWord2 = TextEditingController();
+
   /*тут некоторые строки связаны с файербейс. Я их пока что закоментирую,
   потому что это не особо правильно и файербейс пока что не подключен к проекту*/
 
@@ -87,6 +87,8 @@ class _RegisterState extends State<Register> {
                       onPressed: () {
                         print('${userName.text} & ${passWord.text} / ${passWord2.text}');
                         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                        SharedPrefs().isSigned = true;
+                        SharedPrefs().username = userName.text;
                       },
                       child: const Text('Register'),
                     )),

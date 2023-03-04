@@ -1,5 +1,6 @@
 import 'package:lets_go/screens/FabTabs.dart';
 import 'package:flutter/material.dart';
+import 'package:lets_go/shared_prefs.dart';
 
 class SideMenu extends StatefulWidget {
 
@@ -59,8 +60,10 @@ class _SideMenuState extends State<SideMenu> {
           ListTile(
             leading: Icon(Icons.logout),
             title: Text("Logout"),
-            onTap: () => {
-              Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => false)
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => false);
+              SharedPrefs().isSigned = false;
+              SharedPrefs().username = "";
             },
           )
         ],
