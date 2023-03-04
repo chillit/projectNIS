@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lets_go/main.dart';
+
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class _RegisterState extends State<Register> {
 
   var userName = TextEditingController();
   var passWord = TextEditingController();
-
+  var passWord2 = TextEditingController();
   /*тут некоторые строки связаны с файербейс. Я их пока что закоментирую,
   потому что это не особо правильно и файербейс пока что не подключен к проекту*/
 
@@ -37,7 +37,7 @@ class _RegisterState extends State<Register> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text('Registration',
+                const Text('Sign up',
                     style:
                     TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
                 const Padding(padding: EdgeInsets.only(top: 10)),
@@ -59,6 +59,17 @@ class _RegisterState extends State<Register> {
                   obscuringCharacter: '*',
                   obscureText: isCheked,
                 ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                TextField(
+                  controller: passWord2,
+                  decoration: const InputDecoration(
+                    label: Text('Repeat password'),
+                    filled: true,
+                    border: InputBorder.none,
+                  ),
+                  obscuringCharacter: '*',
+                  obscureText: isCheked,
+                ),
                 Row(children: [
                   Checkbox(
                     value: isCheked,
@@ -74,11 +85,8 @@ class _RegisterState extends State<Register> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        print('${userName.text} & ${passWord.text}');
-                        /*users.add({
-                          'username': userName.text,
-                          'password': passWord.text
-                        });*/
+                        print('${userName.text} & ${passWord.text} / ${passWord2.text}');
+                        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                       },
                       child: const Text('Register'),
                     )),
@@ -98,12 +106,13 @@ class _RegisterState extends State<Register> {
                 child: GestureDetector(
                   onTap: () {
                     print('login');
+                    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
                   },
                   child: const Text(
                     'Login',
                     style: TextStyle(
                         fontSize: 17,
-                        color: Colors.deepPurple,
+                        color: Colors.pinkAccent,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline),
                   ),

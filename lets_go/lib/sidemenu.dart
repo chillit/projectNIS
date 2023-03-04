@@ -57,10 +57,10 @@ class _SideMenuState extends State<SideMenu> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.login),
-            title: Text("Register"),
+            leading: Icon(Icons.logout),
+            title: Text("Logout"),
             onTap: () => {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => FabTabs(selectedIndex:4)))
+              Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => false)
             },
           )
         ],
