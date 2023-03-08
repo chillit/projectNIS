@@ -98,7 +98,7 @@ class MyProfileScreen extends StatelessWidget {
             sizedBox,
             ProfileDetailColumn(
               title: 'Email',
-              value: 'aisha12@gmail.com',
+              value: SharedPrefs().email,
             ),
             ProfileDetailColumn(
               title: 'School',
@@ -186,7 +186,7 @@ class ProfileDetailColumn extends StatelessWidget {
               Text(value, style: Theme.of(context).textTheme.caption),
               kHalfSizedBox,
               SizedBox(
-                width: MediaQuery.of(context).size.width/1.1,
+                width: MediaQuery.of(context).size.width/1.2,
                 child: Divider(
                   thickness: 1.0,
                 ),

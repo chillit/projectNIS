@@ -38,10 +38,6 @@ class _LoginState extends State<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text('Sign in',
-                    style:
-                    TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
                   controller: userName,
                   decoration: const InputDecoration(

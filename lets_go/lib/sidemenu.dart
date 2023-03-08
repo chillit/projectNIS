@@ -62,8 +62,7 @@ class _SideMenuState extends State<SideMenu> {
             title: Text("Logout"),
             onTap: () {
               Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => false);
-              SharedPrefs().isSigned = false;
-              SharedPrefs().username = "";
+              SharedPrefs().clear();
             },
           )
         ],

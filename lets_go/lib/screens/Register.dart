@@ -9,8 +9,12 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   bool isCheked = true;
+  bool isEmailCorrect = true;
+  bool isPasswordCorrect = true;
+  bool isPassword2Correct = true;
 
   var userName = TextEditingController();
+  var eMail = TextEditingController();
   var passWord = TextEditingController();
   var passWord2 = TextEditingController();
 
@@ -37,10 +41,6 @@ class _RegisterState extends State<Register> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text('Sign up',
-                    style:
-                    TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
                   controller: userName,
                   decoration: const InputDecoration(
@@ -50,11 +50,46 @@ class _RegisterState extends State<Register> {
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
+                  controller: eMail,
+                  onChanged: (text){
+                    if(!text.contains('@')){
+                      setState((){
+                        isEmailCorrect = false;
+                      });
+                    }
+                    else{
+                      setState((){
+                        isEmailCorrect = true;
+                      });
+                    }
+                  },
+                  decoration: InputDecoration(
+                      label: Text('Email'),
+                      filled: true,
+                      border: InputBorder.none,
+                      errorText: isEmailCorrect || eMail.text.isEmpty ? null : "Type correct email",
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 10)),
+                TextField(
                   controller: passWord,
-                  decoration: const InputDecoration(
+                  onChanged: (text){
+                    if(text.length < 8){
+                      setState((){
+                        isPasswordCorrect = false;
+                      });
+                    }
+                    else{
+                      setState((){
+                        isPasswordCorrect = true;
+                      });
+                    }
+                  },
+                  decoration: InputDecoration(
                     label: Text('Password'),
                     filled: true,
                     border: InputBorder.none,
+                    errorText: isPasswordCorrect || passWord.text.isEmpty ? null : "In password must be 8 or more symbol",
                   ),
                   obscuringCharacter: '*',
                   obscureText: isCheked,
@@ -62,10 +97,23 @@ class _RegisterState extends State<Register> {
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
                   controller: passWord2,
-                  decoration: const InputDecoration(
+                  onChanged: (text){
+                    if(text.length < 8){
+                      setState((){
+                        isPassword2Correct = false;
+                      });
+                    }
+                    else{
+                      setState((){
+                        isPassword2Correct = true;
+                      });
+                    }
+                  },
+                  decoration: InputDecoration(
                     label: Text('Repeat password'),
                     filled: true,
                     border: InputBorder.none,
+                    errorText: isPassword2Correct || passWord2.text.isEmpty ? null : "In password must be 8 or more symbol",
                   ),
                   obscuringCharacter: '*',
                   obscureText: isCheked,
@@ -86,9 +134,20 @@ class _RegisterState extends State<Register> {
                     child: ElevatedButton(
                       onPressed: () {
                         print('${userName.text} & ${passWord.text} / ${passWord2.text}');
-                        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-                        SharedPrefs().isSigned = true;
-                        SharedPrefs().username = userName.text;
+                        if(isEmailCorrect && isPasswordCorrect && isPassword2Correct && (passWord.text == passWord2.text)) {
+                          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                          SharedPrefs().isSigned = true;
+                          SharedPrefs().username = userName.text;
+                          SharedPrefs().email = eMail.text;
+                        }
+                        else if(passWord != passWord2){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text('Passwords don\'t match!'),
+                                backgroundColor: Color(0xffff0000),
+                            ),
+                          );
+                        }
                       },
                       child: const Text('Register'),
                     )),

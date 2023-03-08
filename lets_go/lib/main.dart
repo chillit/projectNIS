@@ -4,16 +4,18 @@ import 'package:lets_go/screens/Login.dart';
 import 'package:lets_go/screens/Register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lets_go/shared_prefs.dart';
+import 'package:lets_go/constans.dart';
+
 bool isSigned = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  if(prefs.containsKey('isSigned') == false) {
+  if (prefs.containsKey('isSigned') == false) {
     prefs.setBool('isSigned', false);
   }
-  
+
   isSigned = prefs.getBool('isSigned')!;
 
   print("started");
@@ -29,7 +31,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        colorScheme: const ColorScheme(
+            brightness: Brightness.light,
+            primary: kPrimaryColor,
+            onPrimary: kTextWhiteColor,
+            secondary: kSecondaryColor,
+            onSecondary: Colors.black,
+            error: Color(0xFFFF0000),
+            onError: kTextWhiteColor,
+            background: Colors.white,
+            onBackground: Colors.black,
+            surface: kTextLightColor,
+            onSurface: Colors.black),
       ),
       initialRoute: isSigned ? '/' : '/register',
       routes: {

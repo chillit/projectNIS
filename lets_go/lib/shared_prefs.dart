@@ -7,6 +7,10 @@ class SharedPrefs {
     _sharedPrefs ??= await SharedPreferences.getInstance();
   }
 
+  clear() {
+    _sharedPrefs?.clear();
+  }
+
   bool get isSigned => _sharedPrefs!.getBool('isSigned')!;
 
   set isSigned(bool value) {
@@ -17,6 +21,12 @@ class SharedPrefs {
 
   set username(String value) {
     _sharedPrefs?.setString('username', value);
+  }
+
+  String get email => _sharedPrefs!.getString('email')!;
+
+  set email(String value) {
+    _sharedPrefs?.setString('email', value);
   }
 
   SharedPrefs._internal();
