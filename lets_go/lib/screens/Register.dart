@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lets_go/constans.dart';
 import 'package:lets_go/shared_prefs.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
+
   @override
   State<Register> createState() => _RegisterState();
 }
@@ -51,45 +53,47 @@ class _RegisterState extends State<Register> {
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
                   controller: eMail,
-                  onChanged: (text){
-                    if(!text.contains('@')){
-                      setState((){
+                  onChanged: (text) {
+                    if (!text.contains('@')) {
+                      setState(() {
                         isEmailCorrect = false;
                       });
-                    }
-                    else{
-                      setState((){
+                    } else {
+                      setState(() {
                         isEmailCorrect = true;
                       });
                     }
                   },
                   decoration: InputDecoration(
-                      label: Text('Email'),
-                      filled: true,
-                      border: InputBorder.none,
-                      errorText: isEmailCorrect || eMail.text.isEmpty ? null : "Type correct email",
+                    label: const Text('Email'),
+                    filled: true,
+                    border: InputBorder.none,
+                    errorText: isEmailCorrect || eMail.text.isEmpty
+                        ? null
+                        : "Type correct email",
                   ),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
                   controller: passWord,
-                  onChanged: (text){
-                    if(text.length < 8){
-                      setState((){
+                  onChanged: (text) {
+                    if (text.length < 8) {
+                      setState(() {
                         isPasswordCorrect = false;
                       });
-                    }
-                    else{
-                      setState((){
+                    } else {
+                      setState(() {
                         isPasswordCorrect = true;
                       });
                     }
                   },
                   decoration: InputDecoration(
-                    label: Text('Password'),
+                    label: const Text('Password'),
                     filled: true,
                     border: InputBorder.none,
-                    errorText: isPasswordCorrect || passWord.text.isEmpty ? null : "In password must be 8 or more symbol",
+                    errorText: isPasswordCorrect || passWord.text.isEmpty
+                        ? null
+                        : "Type 8 or more symbol",
                   ),
                   obscuringCharacter: '*',
                   obscureText: isCheked,
@@ -97,23 +101,24 @@ class _RegisterState extends State<Register> {
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
                   controller: passWord2,
-                  onChanged: (text){
-                    if(text.length < 8){
-                      setState((){
+                  onChanged: (text) {
+                    if (text.length < 8) {
+                      setState(() {
                         isPassword2Correct = false;
                       });
-                    }
-                    else{
-                      setState((){
+                    } else {
+                      setState(() {
                         isPassword2Correct = true;
                       });
                     }
                   },
                   decoration: InputDecoration(
-                    label: Text('Repeat password'),
+                    label: const Text('Repeat password'),
                     filled: true,
                     border: InputBorder.none,
-                    errorText: isPassword2Correct || passWord2.text.isEmpty ? null : "In password must be 8 or more symbol",
+                    errorText: isPassword2Correct || passWord2.text.isEmpty
+                        ? null
+                        : "Type 8 or more symbols",
                   ),
                   obscuringCharacter: '*',
                   obscureText: isCheked,
@@ -134,17 +139,40 @@ class _RegisterState extends State<Register> {
                     child: ElevatedButton(
                       onPressed: () {
                         print('${userName.text} & ${passWord.text} / ${passWord2.text}');
-                        if(isEmailCorrect && isPasswordCorrect && isPassword2Correct && (passWord.text == passWord2.text)) {
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        if (userName.text.isNotEmpty &&
+                            eMail.text.isNotEmpty &&
+                            isEmailCorrect &&
+                            passWord.text.isNotEmpty &&
+                            isPasswordCorrect &&
+                            (passWord.text == passWord2.text)) {
                           Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                           SharedPrefs().isSigned = true;
                           SharedPrefs().username = userName.text;
                           SharedPrefs().email = eMail.text;
-                        }
-                        else if(passWord != passWord2){
+                        } else if (userName.text.isEmpty ||
+                            eMail.text.isEmpty ||
+                            passWord.text.isEmpty ||
+                            passWord2.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                                content: Text('Passwords don\'t match!'),
-                                backgroundColor: Color(0xffff0000),
+                            const SnackBar(
+                              content: Text('There are some empty fields!'),
+                              backgroundColor: Color(0xffff0000),
+                            ),
+                          );
+                        } else if (passWord.text != passWord2.text) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Passwords don\'t match!'),
+                              backgroundColor: Color(0xffff0000),
+                            ),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text('Please, fulfill the requirements!'),
+                              backgroundColor: Color(0xffff0000),
                             ),
                           );
                         }
@@ -167,13 +195,14 @@ class _RegisterState extends State<Register> {
                 child: GestureDetector(
                   onTap: () {
                     print('login');
-                    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/login', (route) => false);
                   },
                   child: const Text(
                     'Login',
                     style: TextStyle(
                         fontSize: 17,
-                        color: Colors.pinkAccent,
+                        color: kSecondaryColor,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline),
                   ),
