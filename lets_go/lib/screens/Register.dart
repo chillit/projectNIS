@@ -11,6 +11,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   bool isCheked = true;
+  bool isUsernameCorrect = true;
   bool isEmailCorrect = true;
   bool isPasswordCorrect = true;
   bool isPassword2Correct = true;
@@ -45,10 +46,25 @@ class _RegisterState extends State<Register> {
               children: <Widget>[
                 TextField(
                   controller: userName,
-                  decoration: const InputDecoration(
+                  onChanged: (text) {
+                    if (text.length < 2) {
+                      setState(() {
+                        isUsernameCorrect = false;
+                      });
+                    } else {
+                      setState(() {
+                        isUsernameCorrect = true;
+                      });
+                    }
+                  },
+                  decoration: InputDecoration(
                       label: Text('Username'),
                       filled: true,
-                      border: InputBorder.none),
+                      border: InputBorder.none,
+                      errorText: isUsernameCorrect || userName.text.isEmpty
+                        ? null
+                        : "Type 2 or more symbols",
+                  ),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
@@ -141,6 +157,7 @@ class _RegisterState extends State<Register> {
                         print('${userName.text} & ${passWord.text} / ${passWord2.text}');
                         ScaffoldMessenger.of(context).clearSnackBars();
                         if (userName.text.isNotEmpty &&
+                            isUsernameCorrect &&
                             eMail.text.isNotEmpty &&
                             isEmailCorrect &&
                             passWord.text.isNotEmpty &&

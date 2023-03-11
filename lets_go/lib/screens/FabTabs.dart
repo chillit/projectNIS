@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:lets_go/screens/Register.dart';
 import 'package:lets_go/screens/quiz/home.dart';
 import 'package:lets_go/screens/more.dart';
@@ -38,6 +39,10 @@ class _FabTabsState extends State<FabTabs> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.portraitUp,
+    ]);
     Widget currentScreen = currentIndex == 0
         ? Home()
         : currentIndex == 1

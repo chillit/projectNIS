@@ -47,29 +47,35 @@ class MyProfileScreen extends StatelessWidget {
                 borderRadius: kBottomBorderRadius,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundColor: kSecondaryColor,
-                    backgroundImage:
-                    AssetImage('assets/images/student_profile.jpeg'),
-                  ),
-                  kWidthSizedBox,
-                  Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 50,
+                  backgroundColor: kSecondaryColor,
+                  backgroundImage:
+                  AssetImage('assets/images/MAIN CHARECTER1.png'),
+                ),
+                kWidthSizedBox,
+                Flexible(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        SharedPrefs().username,
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            SharedPrefs().username,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 25),
+                          ),
+                        ),
                       Text('Rating:1987 | Leaderboard:4',
-                          style: Theme.of(context).textTheme.subtitle2),
+                          style: Theme.of(context).textTheme.subtitle1),
                     ],
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
+            ),
             ),
             sizedBox,
             Row(
