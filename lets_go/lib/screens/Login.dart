@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lets_go/constans.dart';
+import '../shared_prefs.dart';
 
 
 class Login extends StatefulWidget {
@@ -37,10 +39,6 @@ class _LoginState extends State<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text('Sign in',
-                    style:
-                    TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
                   controller: userName,
                   decoration: const InputDecoration(
@@ -75,7 +73,21 @@ class _LoginState extends State<Login> {
                     child: ElevatedButton(
                       onPressed: () {
                         print('${userName.text} & ${passWord.text}');
-                        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        if (userName.text.isNotEmpty &&
+                            passWord.text.isNotEmpty) {
+                          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                          SharedPrefs().isSigned = true;
+                          SharedPrefs().username = userName.text;
+                          SharedPrefs().email = "Потом исправим, когда подключим к базе данных";
+                        } else if (userName.text.isEmpty || passWord.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('There are some empty fields!'),
+                              backgroundColor: Color(0xffff0000),
+                            ),
+                          );
+                        }
                       },
                       child: const Text('Login'),
                     )),
@@ -101,7 +113,7 @@ class _LoginState extends State<Login> {
                     'Register',
                     style: TextStyle(
                         fontSize: 17,
-                        color: Colors.pinkAccent,
+                        color: kSecondaryColor,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline),
                   ),

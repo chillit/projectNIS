@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lets_go/constans.dart';
 import 'package:lets_go/sidemenu.dart';
+import 'package:lets_go/shared_prefs.dart';
 
 class MyProfileScreen extends StatelessWidget {
   const MyProfileScreen({Key? key}) : super(key: key);
@@ -46,29 +47,35 @@ class MyProfileScreen extends StatelessWidget {
                 borderRadius: kBottomBorderRadius,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundColor: kSecondaryColor,
-                    backgroundImage:
-                    AssetImage('assets/images/student_profile.jpeg'),
-                  ),
-                  kWidthSizedBox,
-                  Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 50,
+                  backgroundColor: kSecondaryColor,
+                  backgroundImage:
+                  AssetImage('assets/images/MAIN CHARECTER1.png'),
+                ),
+                kWidthSizedBox,
+                Flexible(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Aisha Mirza',
-                        style: Theme.of(context).textTheme.subtitle1,
-                      ),
+                        FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            SharedPrefs().username,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 25),
+                          ),
+                        ),
                       Text('Rating:1987 | Leaderboard:4',
-                          style: Theme.of(context).textTheme.subtitle2),
+                          style: Theme.of(context).textTheme.subtitle1),
                     ],
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
+            ),
             ),
             sizedBox,
             Row(
@@ -97,7 +104,7 @@ class MyProfileScreen extends StatelessWidget {
             sizedBox,
             ProfileDetailColumn(
               title: 'Email',
-              value: 'aisha12@gmail.com',
+              value: SharedPrefs().email,
             ),
             ProfileDetailColumn(
               title: 'School',
@@ -185,7 +192,7 @@ class ProfileDetailColumn extends StatelessWidget {
               Text(value, style: Theme.of(context).textTheme.caption),
               kHalfSizedBox,
               SizedBox(
-                width: MediaQuery.of(context).size.width/1.1,
+                width: MediaQuery.of(context).size.width/1.2,
                 child: Divider(
                   thickness: 1.0,
                 ),

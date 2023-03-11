@@ -15,7 +15,6 @@ class _HomeState extends State<Team> {
       drawer: SideMenu(),
       appBar: AppBar(
         title: Text("Team"),
-        backgroundColor: Colors.pinkAccent,
       ),
       body: Center(
         child: Column(
