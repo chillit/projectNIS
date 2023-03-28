@@ -58,10 +58,38 @@ class _RegisterState extends State<Register> {
                     }
                   },
                   decoration: InputDecoration(
-                      label: Text('Username'),
-                      filled: true,
-                      border: InputBorder.none,
-                      errorText: isUsernameCorrect || userName.text.isEmpty
+                    label: Text('Username'),
+                    floatingLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        style: BorderStyle.none,
+                        width: 0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xffff0000),
+                        width: 1,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xffff0000),
+                        width: 2,
+                      ),
+                    ),
+                    errorText: isUsernameCorrect || userName.text.isEmpty
                         ? null
                         : "Type 2 or more symbols",
                   ),
@@ -82,8 +110,36 @@ class _RegisterState extends State<Register> {
                   },
                   decoration: InputDecoration(
                     label: const Text('Email'),
+                    floatingLabelStyle: TextStyle(fontWeight: FontWeight.bold),
                     filled: true,
-                    border: InputBorder.none,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        style: BorderStyle.none,
+                        width: 0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xffff0000),
+                        width: 1,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xffff0000),
+                        width: 2,
+                      ),
+                    ),
                     errorText: isEmailCorrect || eMail.text.isEmpty
                         ? null
                         : "Type correct email",
@@ -105,8 +161,36 @@ class _RegisterState extends State<Register> {
                   },
                   decoration: InputDecoration(
                     label: const Text('Password'),
+                    floatingLabelStyle: TextStyle(fontWeight: FontWeight.bold),
                     filled: true,
-                    border: InputBorder.none,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        style: BorderStyle.none,
+                        width: 0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xffff0000),
+                        width: 1,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xffff0000),
+                        width: 2,
+                      ),
+                    ),
                     errorText: isPasswordCorrect || passWord.text.isEmpty
                         ? null
                         : "Type 8 or more symbol",
@@ -130,8 +214,36 @@ class _RegisterState extends State<Register> {
                   },
                   decoration: InputDecoration(
                     label: const Text('Repeat password'),
+                    floatingLabelStyle: TextStyle(fontWeight: FontWeight.bold),
                     filled: true,
-                    border: InputBorder.none,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        style: BorderStyle.none,
+                        width: 0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2,
+                      ),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xffff0000),
+                        width: 1,
+                      ),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: Color(0xffff0000),
+                        width: 2,
+                      ),
+                    ),
                     errorText: isPassword2Correct || passWord2.text.isEmpty
                         ? null
                         : "Type 8 or more symbols",
@@ -154,7 +266,8 @@ class _RegisterState extends State<Register> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        print('${userName.text} & ${passWord.text} / ${passWord2.text}');
+                        print(
+                            '${userName.text} & ${passWord.text} / ${passWord2.text}');
                         ScaffoldMessenger.of(context).clearSnackBars();
                         if (userName.text.isNotEmpty &&
                             isUsernameCorrect &&
@@ -163,7 +276,8 @@ class _RegisterState extends State<Register> {
                             passWord.text.isNotEmpty &&
                             isPasswordCorrect &&
                             (passWord.text == passWord2.text)) {
-                          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/', (route) => false);
                           SharedPrefs().isSigned = true;
                           SharedPrefs().username = userName.text;
                           SharedPrefs().email = eMail.text;

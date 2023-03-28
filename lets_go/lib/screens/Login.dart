@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lets_go/constans.dart';
 import '../shared_prefs.dart';
 
-
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -41,18 +40,47 @@ class _LoginState extends State<Login> {
               children: <Widget>[
                 TextField(
                   controller: userName,
-                  decoration: const InputDecoration(
-                      label: Text('Username'),
-                      filled: true,
-                      border: InputBorder.none),
+                  decoration: InputDecoration(
+                    label: Text('Username'),
+                    floatingLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        style: BorderStyle.none,
+                        width: 0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2,
+                      ),
+                    ),
+                  ),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
                   controller: passWord,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     label: Text('Password'),
+                    floatingLabelStyle: TextStyle(fontWeight: FontWeight.bold),
                     filled: true,
-                    border: InputBorder.none,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        style: BorderStyle.none,
+                        width: 0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2,
+                      ),
+                    ),
                   ),
                   obscuringCharacter: '*',
                   obscureText: isCheked,
@@ -76,11 +104,14 @@ class _LoginState extends State<Login> {
                         ScaffoldMessenger.of(context).clearSnackBars();
                         if (userName.text.isNotEmpty &&
                             passWord.text.isNotEmpty) {
-                          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/', (route) => false);
                           SharedPrefs().isSigned = true;
                           SharedPrefs().username = userName.text;
-                          SharedPrefs().email = "Потом исправим, когда подключим к базе данных";
-                        } else if (userName.text.isEmpty || passWord.text.isEmpty) {
+                          SharedPrefs().email =
+                              "Потом исправим, когда подключим к базе данных";
+                        } else if (userName.text.isEmpty ||
+                            passWord.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('There are some empty fields!'),
@@ -107,7 +138,8 @@ class _LoginState extends State<Login> {
                 child: GestureDetector(
                   onTap: () {
                     print('register');
-                    Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => false);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/register', (route) => false);
                   },
                   child: const Text(
                     'Register',
