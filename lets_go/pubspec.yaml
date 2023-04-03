@@ -29,7 +29,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   google_fonts: ^4.0.3
-  sizer: ^2.0.15
+  shared_preferences: ^2.0.18
+  firebase_auth: ^4.3.0
   flutter:
     sdk: flutter
 
@@ -62,8 +63,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-assets:
-  - assets/bg.jpeg
+  assets:
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

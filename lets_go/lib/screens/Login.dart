@@ -1,8 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:lets_go/constans.dart';
+import '../shared_prefs.dart';
+import 'package:lets_go/Auth.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({Key? key, required Function this.changeReg}) : super(key: key);
+
+  final Function changeReg;
 
   @override
   State<Login> createState() => _LoginState();
@@ -11,13 +16,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool isCheked = true;
 
-  var userName = TextEditingController();
+  var eMail = TextEditingController();
   var passWord = TextEditingController();
-
-  /*тут некоторые строки связаны с файербейс. Я их пока что закоментирую,
-  потому что это не особо правильно и файербейс пока что не подключен к проекту*/
-
-  //CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   @override
   Widget build(BuildContext context) {
@@ -37,24 +37,49 @@ class _LoginState extends State<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text('Sign in',
-                    style:
-                    TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-                const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
-                  controller: userName,
-                  decoration: const InputDecoration(
-                      label: Text('Username'),
-                      filled: true,
-                      border: InputBorder.none),
+                  controller: eMail,
+                  decoration: InputDecoration(
+                    label: Text('Username'),
+                    floatingLabelStyle: TextStyle(fontWeight: FontWeight.bold),
+                    filled: true,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        style: BorderStyle.none,
+                        width: 0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2,
+                      ),
+                    ),
+                  ),
                 ),
                 const Padding(padding: EdgeInsets.only(top: 10)),
                 TextField(
                   controller: passWord,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     label: Text('Password'),
+                    floatingLabelStyle: TextStyle(fontWeight: FontWeight.bold),
                     filled: true,
-                    border: InputBorder.none,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        style: BorderStyle.none,
+                        width: 0,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2,
+                      ),
+                    ),
                   ),
                   obscuringCharacter: '*',
                   obscureText: isCheked,
@@ -73,9 +98,41 @@ class _LoginState extends State<Login> {
                 SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
-                        print('${userName.text} & ${passWord.text}');
-                        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                      onPressed: () async {
+                        print('${eMail.text} & ${passWord.text}');
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        if (eMail.text.isNotEmpty && passWord.text.isNotEmpty) {
+                          // Navigator.pushNamedAndRemoveUntil(
+                          //     context, '/', (route) => false);
+                          try {
+                            await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: eMail.text.trim(),
+                              password: passWord.text.trim(),
+                            );
+                          } on FirebaseAuthException catch (e) {
+                            showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    AlertDialog(
+                                      title: Text("Oops!"),
+                                      content: Text(e.message.toString()),
+                                      backgroundColor: kSecondaryColor,
+                                    ));
+                          }
+                          SharedPrefs().isSigned = true;
+                          SharedPrefs().username =
+                          "Потом исправим, когда подключим к базе данных";
+                          SharedPrefs().email = eMail.text;
+                        } else if (eMail.text.isEmpty ||
+                            passWord.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('There are some empty fields!'),
+                              backgroundColor: Color(0xffff0000),
+                            ),
+                          );
+                        }
                       },
                       child: const Text('Login'),
                     )),
@@ -95,13 +152,13 @@ class _LoginState extends State<Login> {
                 child: GestureDetector(
                   onTap: () {
                     print('register');
-                    Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => false);
+                    widget.changeReg();
                   },
                   child: const Text(
                     'Register',
                     style: TextStyle(
                         fontSize: 17,
-                        color: Colors.pinkAccent,
+                        color: kSecondaryColor,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline),
                   ),
@@ -113,4 +170,19 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    eMail.dispose();
+    passWord.dispose();
+    super.dispose();
+  }
+
+/*Future login() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: eMail.text.trim(),
+      password: passWord.text.trim(),
+    );
+  }*/
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lets_go/screens/Register.dart';
 import 'package:lets_go/screens/quiz/home.dart';
 import 'package:lets_go/screens/more.dart';
@@ -5,9 +6,28 @@ import 'package:lets_go/screens/profile.dart';
 import 'package:lets_go/screens/team.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_go/screens/Play.dart';
+import 'package:lets_go/Auth.dart';
+
+class Fabs extends StatelessWidget {
+  Fabs({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return FabTabs(selectedIndex: 0);
+          } else {
+            return Auth();
+          }
+        });
+  }
+}
 
 class FabTabs extends StatefulWidget {
   int selectedIndex = 0;
+
   FabTabs({required this.selectedIndex});
 
   @override
@@ -17,7 +37,7 @@ class FabTabs extends StatefulWidget {
 class _FabTabsState extends State<FabTabs> {
   int currentIndex = 0;
 
-  void onItemTapped(int index){
+  void onItemTapped(int index) {
     setState(() {
       widget.selectedIndex = index;
       currentIndex = widget.selectedIndex;
@@ -31,24 +51,28 @@ class _FabTabsState extends State<FabTabs> {
     super.initState();
   }
 
-  final List<Widget> pages = [
-    Home(),
-    MyProfileScreen(),
-    Team(),
-    More()
-  ];
+  final List<Widget> pages = [Home(), MyProfileScreen(), Team(), More()];
 
   final PageStorageBucket bucket = PageStorageBucket();
+
   @override
   Widget build(BuildContext context) {
-    Widget currentScreen = currentIndex == 0 ? Home() : currentIndex == 1 ? MyProfileScreen() :currentIndex == 2 ?Team():currentIndex == 3 ?More():currentIndex == 4?Register():Play();
+    Widget currentScreen = currentIndex == 0
+        ? Home()
+        : currentIndex == 1
+            ? MyProfileScreen()
+            : currentIndex == 2
+                ? Team()
+                : currentIndex == 3
+                    ? More()
+                    : Play();
     return Scaffold(
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.purple,
+        //backgroundColor: Colors.purple,
         child: Icon(Icons.play_arrow_sharp),
         onPressed: () {
           setState(() {
@@ -71,7 +95,7 @@ class _FabTabsState extends State<FabTabs> {
                 children: [
                   MaterialButton(
                     minWidth: 50,
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
                         currentScreen = Home();
                         currentIndex = 0;
@@ -82,18 +106,23 @@ class _FabTabsState extends State<FabTabs> {
                       children: [
                         Icon(
                           Icons.home_filled,
-                          color: currentIndex == 0 ? Colors.pinkAccent : Colors.grey,
+                          color: currentIndex == 0
+                              ? Colors.pinkAccent
+                              : Colors.grey,
                         ),
                         Text(
                           "Home",
-                          style: TextStyle(color: currentIndex == 0 ? Colors.pinkAccent : Colors.grey),
+                          style: TextStyle(
+                              color: currentIndex == 0
+                                  ? Colors.pinkAccent
+                                  : Colors.grey),
                         )
                       ],
                     ),
                   ),
                   MaterialButton(
                     minWidth: 50,
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
                         currentScreen = MyProfileScreen();
                         currentIndex = 1;
@@ -104,11 +133,16 @@ class _FabTabsState extends State<FabTabs> {
                       children: [
                         Icon(
                           Icons.person,
-                          color: currentIndex == 1 ? Colors.blueAccent : Colors.grey,
+                          color: currentIndex == 1
+                              ? Colors.blueAccent
+                              : Colors.grey,
                         ),
                         Text(
                           "Profile",
-                          style: TextStyle(color: currentIndex == 1 ? Colors.blueAccent : Colors.grey),
+                          style: TextStyle(
+                              color: currentIndex == 1
+                                  ? Colors.blueAccent
+                                  : Colors.grey),
                         )
                       ],
                     ),
@@ -120,7 +154,7 @@ class _FabTabsState extends State<FabTabs> {
                 children: [
                   MaterialButton(
                     minWidth: 50,
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
                         currentScreen = Team();
                         currentIndex = 2;
@@ -135,14 +169,17 @@ class _FabTabsState extends State<FabTabs> {
                         ),
                         Text(
                           "Team",
-                          style: TextStyle(color: currentIndex == 2 ? Colors.blue : Colors.grey),
+                          style: TextStyle(
+                              color: currentIndex == 2
+                                  ? Colors.blue
+                                  : Colors.grey),
                         )
                       ],
                     ),
                   ),
                   MaterialButton(
                     minWidth: 50,
-                    onPressed: (){
+                    onPressed: () {
                       setState(() {
                         currentScreen = More();
                         currentIndex = 3;
@@ -153,11 +190,16 @@ class _FabTabsState extends State<FabTabs> {
                       children: [
                         Icon(
                           Icons.more_horiz_outlined,
-                          color: currentIndex == 3 ? Colors.orangeAccent : Colors.grey,
+                          color: currentIndex == 3
+                              ? Colors.orangeAccent
+                              : Colors.grey,
                         ),
                         Text(
                           "More",
-                          style: TextStyle(color: currentIndex == 3 ? Colors.orangeAccent : Colors.grey),
+                          style: TextStyle(
+                              color: currentIndex == 3
+                                  ? Colors.orangeAccent
+                                  : Colors.grey),
                         )
                       ],
                     ),

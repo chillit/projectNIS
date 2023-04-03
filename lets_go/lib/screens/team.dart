@@ -15,14 +15,13 @@ class _HomeState extends State<Team> {
       drawer: SideMenu(),
       appBar: AppBar(
         title: Text("Team"),
-        backgroundColor: Colors.pinkAccent,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'TEAM',style: TextStyle(fontSize: 40),
+              'TEAM', style: TextStyle(fontSize: 40),
             ),
           ],
         ),
