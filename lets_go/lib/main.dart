@@ -5,26 +5,43 @@ import 'package:lets_go/screens/Register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lets_go/shared_prefs.dart';
 import 'package:lets_go/constans.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-bool isSigned = false;
+//bool isSigned = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: 'AIzaSyBopLmS7xqMMu113JR3iOH5rViqEVTj8qA',
+        appId: '1:929569094769:android:e22414ebb665d548d6efd0',
+        messagingSenderId: '929569094769',
+        projectId: 'tensaiproject-2e8cc'),
+  );
+  //final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  if (prefs.containsKey('isSigned') == false) {
+  /*if (prefs.containsKey('isSigned') == false) {
     prefs.setBool('isSigned', false);
-  }
+  }*/
 
-  isSigned = prefs.getBool('isSigned')!;
+  //isSigned = prefs.getBool('isSigned')!;
 
   print("started");
   SharedPrefs().init();
-  runApp(const MyApp());
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -44,11 +61,11 @@ class MyApp extends StatelessWidget {
             surface: kTextLightColor,
             onSurface: Colors.black),
       ),
-      initialRoute: isSigned ? '/' : '/register',
+      initialRoute: '/',
       routes: {
-        '/': (context) => FabTabs(selectedIndex: 0),
-        '/register': (context) => Register(),
-        '/login': (context) => Login(),
+        '/': (context) => Fabs(),
+        /*'/register': (context) => Register(),
+        '/login': (context) => Login(),*/
       },
     );
   }

@@ -29,8 +29,8 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   google_fonts: ^4.0.3
-  sizer: ^2.0.15
   shared_preferences: ^2.0.18
+  firebase_auth: ^4.3.0
   flutter:
     sdk: flutter
 

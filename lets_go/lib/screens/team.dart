@@ -21,7 +21,7 @@ class _HomeState extends State<Team> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'TEAM',style: TextStyle(fontSize: 40),
+              'TEAM', style: TextStyle(fontSize: 40),
             ),
           ],
         ),

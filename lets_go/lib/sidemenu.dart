@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lets_go/screens/FabTabs.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_go/shared_prefs.dart';
@@ -105,8 +106,11 @@ class _SideMenuState extends State<SideMenu> {
             leading: Icon(Icons.logout),
             title: Text("Logout"),
             onTap: () {
+              // Navigator.pushNamedAndRemoveUntil(
+              //     context, '/register', (route) => false);
+              FirebaseAuth.instance.signOut();
               Navigator.pushNamedAndRemoveUntil(
-                  context, '/register', (route) => false);
+                       context, '/', (route) => false);
               SharedPrefs().clear();
             },
           )

@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_go/constans.dart';
 import 'package:lets_go/shared_prefs.dart';
+import 'package:lets_go/Auth.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  const Register({Key? key, required Function this.changeReg}) : super(key: key);
 
+  final Function changeReg;
   @override
   State<Register> createState() => _RegisterState();
 }
@@ -265,7 +268,7 @@ class _RegisterState extends State<Register> {
                 SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         print(
                             '${userName.text} & ${passWord.text} / ${passWord2.text}');
                         ScaffoldMessenger.of(context).clearSnackBars();
@@ -276,8 +279,23 @@ class _RegisterState extends State<Register> {
                             passWord.text.isNotEmpty &&
                             isPasswordCorrect &&
                             (passWord.text == passWord2.text)) {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/', (route) => false);
+                          //Navigator.pushNamedAndRemoveUntil(
+                            //  context, '/', (route) => false);
+                          try {
+                            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                              email: eMail.text.trim(),
+                              password: passWord.text.trim(),
+                            );
+                          } on FirebaseAuthException catch (e) {
+                            showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    AlertDialog(
+                                      title: Text("Oops!"),
+                                      content: Text(e.message.toString()),
+                                      backgroundColor: kSecondaryColor,
+                                    ));
+                          }
                           SharedPrefs().isSigned = true;
                           SharedPrefs().username = userName.text;
                           SharedPrefs().email = eMail.text;
@@ -326,8 +344,7 @@ class _RegisterState extends State<Register> {
                 child: GestureDetector(
                   onTap: () {
                     print('login');
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/login', (route) => false);
+                    widget.changeReg();
                   },
                   child: const Text(
                     'Login',
@@ -343,6 +360,23 @@ class _RegisterState extends State<Register> {
           )
         ],
       ),
+    );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    eMail.dispose();
+    passWord2.dispose();
+    passWord.dispose();
+    userName.dispose();
+    super.dispose();
+  }
+
+  Future register() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: eMail.text.trim(),
+      password: passWord.text.trim(),
     );
   }
 }

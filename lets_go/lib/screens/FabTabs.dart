@@ -1,4 +1,4 @@
-import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lets_go/screens/Register.dart';
 import 'package:lets_go/screens/quiz/home.dart';
 import 'package:lets_go/screens/more.dart';
@@ -6,6 +6,24 @@ import 'package:lets_go/screens/profile.dart';
 import 'package:lets_go/screens/team.dart';
 import 'package:flutter/material.dart';
 import 'package:lets_go/screens/Play.dart';
+import 'package:lets_go/Auth.dart';
+
+class Fabs extends StatelessWidget {
+  Fabs({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return FabTabs(selectedIndex: 0);
+          } else {
+            return Auth();
+          }
+        });
+  }
+}
 
 class FabTabs extends StatefulWidget {
   int selectedIndex = 0;
@@ -39,10 +57,6 @@ class _FabTabsState extends State<FabTabs> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.portraitUp,
-    ]);
     Widget currentScreen = currentIndex == 0
         ? Home()
         : currentIndex == 1
@@ -51,9 +65,7 @@ class _FabTabsState extends State<FabTabs> {
                 ? Team()
                 : currentIndex == 3
                     ? More()
-                    : currentIndex == 4
-                        ? Register()
-                        : Play();
+                    : Play();
     return Scaffold(
       body: PageStorage(
         child: currentScreen,

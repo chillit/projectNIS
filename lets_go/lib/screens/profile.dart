@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:lets_go/constans.dart';
 import 'package:lets_go/sidemenu.dart';
 import 'package:lets_go/shared_prefs.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MyProfileScreen extends StatelessWidget {
-  const MyProfileScreen({Key? key}) : super(key: key);
-  static String routeName = 'MyProfileScreen';
+  MyProfileScreen({Key? key}) : super(key: key);
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +105,7 @@ class MyProfileScreen extends StatelessWidget {
             sizedBox,
             ProfileDetailColumn(
               title: 'Email',
-              value: SharedPrefs().email,
+              value: user.email!,
             ),
             ProfileDetailColumn(
               title: 'School',
