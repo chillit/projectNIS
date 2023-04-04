@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:lets_go/screens/Register.dart';
 import 'package:lets_go/screens/quiz/home.dart';
 import 'package:lets_go/screens/more.dart';
 import 'package:lets_go/screens/profile.dart';

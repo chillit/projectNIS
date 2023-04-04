@@ -104,25 +104,32 @@ class _LoginState extends State<Login> {
                         if (eMail.text.isNotEmpty && passWord.text.isNotEmpty) {
                           // Navigator.pushNamedAndRemoveUntil(
                           //     context, '/', (route) => false);
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => const Center(
+                                    child: CircularProgressIndicator(),
+                                  ));
                           try {
                             await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                               email: eMail.text.trim(),
                               password: passWord.text.trim(),
                             );
+                            Navigator.of(context,rootNavigator: true).pop();
                           } on FirebaseAuthException catch (e) {
+                            Navigator.of(context,rootNavigator: true).pop();
                             showDialog(
                                 context: context,
-                                builder: (context) =>
-                                    AlertDialog(
+                                builder: (context) => AlertDialog(
                                       title: Text("Oops!"),
                                       content: Text(e.message.toString()),
                                       backgroundColor: kSecondaryColor,
                                     ));
                           }
-                          SharedPrefs().isSigned = true;
+                          //SharedPrefs().isSigned = true;
                           SharedPrefs().username =
-                          "Потом исправим, когда подключим к базе данных";
+                              "Потом исправим, когда подключим к базе данных";
                           SharedPrefs().email = eMail.text;
                         } else if (eMail.text.isEmpty ||
                             passWord.text.isEmpty) {

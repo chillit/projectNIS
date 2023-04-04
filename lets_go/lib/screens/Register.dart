@@ -281,12 +281,20 @@ class _RegisterState extends State<Register> {
                             (passWord.text == passWord2.text)) {
                           //Navigator.pushNamedAndRemoveUntil(
                             //  context, '/', (route) => false);
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) => const Center(
+                                child: CircularProgressIndicator(),
+                              ));
                           try {
                             await FirebaseAuth.instance.createUserWithEmailAndPassword(
                               email: eMail.text.trim(),
                               password: passWord.text.trim(),
                             );
+                            Navigator.of(context,rootNavigator: true).pop();
                           } on FirebaseAuthException catch (e) {
+                            Navigator.of(context, rootNavigator: true).pop();
                             showDialog(
                                 context: context,
                                 builder: (context) =>
@@ -296,7 +304,7 @@ class _RegisterState extends State<Register> {
                                       backgroundColor: kSecondaryColor,
                                     ));
                           }
-                          SharedPrefs().isSigned = true;
+                          //SharedPrefs().isSigned = true;
                           SharedPrefs().username = userName.text;
                           SharedPrefs().email = eMail.text;
                         } else if (userName.text.isEmpty ||

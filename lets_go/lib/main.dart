@@ -47,19 +47,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: const ColorScheme(
             brightness: Brightness.light,
             primary: kPrimaryColor,
             onPrimary: kTextWhiteColor,
             secondary: kSecondaryColor,
-            onSecondary: Colors.black,
-            error: Color(0xFFFF0000),
+            onSecondary: kTextBlackColor,
+            error: kErrorBorderColor,
             onError: kTextWhiteColor,
             background: Colors.white,
-            onBackground: Colors.black,
+            onBackground: kTextBlackColor,
             surface: kTextLightColor,
-            onSurface: Colors.black),
+            onSurface: kTextBlackColor),
       ),
       initialRoute: '/',
       routes: {

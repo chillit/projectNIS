@@ -11,11 +11,11 @@ class SharedPrefs {
     _sharedPrefs?.clear();
   }
 
-  bool get isSigned => _sharedPrefs!.getBool('isSigned')!;
+  //bool get isSigned => _sharedPrefs!.getBool('isSigned')!;
 
-  set isSigned(bool value) {
+  /*set isSigned(bool value) {
     _sharedPrefs?.setBool('isSigned', value);
-  }
+  }*/
 
   String get username => _sharedPrefs!.getString('username')!;
 
